@@ -52,7 +52,7 @@ resource "azurerm_linux_virtual_machine" "app" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = "Standard_NC4as_T4_v3"
-  depends_on = [ azurerm_network_interface.app ]
+  depends_on          = [azurerm_network_interface.app]
 
   admin_username = "apmic"
   admin_password = random_password.vm.result
@@ -65,8 +65,8 @@ resource "azurerm_linux_virtual_machine" "app" {
   }
 
   plan {
-    name = "nvidia_hpc_sdk_vmi_23_03_0_gen2"
-    product = "nvidia_hpc_sdk_vmi"
+    name      = "nvidia_hpc_sdk_vmi_23_03_0_gen2"
+    product   = "nvidia_hpc_sdk_vmi"
     publisher = "nvidia"
   }
 
@@ -82,7 +82,7 @@ resource "azurerm_linux_virtual_machine" "app" {
 
 # Create Storage Account
 resource "azurerm_storage_account" "caddy" {
-  name                      = "stgofmineru" 
+  name                      = "stgofmineru"
   resource_group_name       = azurerm_resource_group.rg.name
   location                  = azurerm_resource_group.rg.location
   account_tier              = "Standard"
