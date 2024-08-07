@@ -1,7 +1,7 @@
 output "pwd" {
-  value     = random_password.vm.result
+  value = random_password.vm.result
 }
 
 output "ip" {
-  value     = azurerm_public_ip.app.ip_address
+  value = azurerm_public_ip.app.ip_address
 }
