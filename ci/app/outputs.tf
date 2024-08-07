@@ -1,4 +1,7 @@
 output "pwd" {
   value     = random_password.vm.result
-  sensitive = true
+}
+
+output "ip" {
+  value     = azurerm_public_ip.app.ip_address
 }
