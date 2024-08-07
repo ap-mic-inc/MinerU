@@ -1,5 +1,5 @@
 output "pwd" {
-  value = random_password.vm.result
+  value = nonsensitive(random_password.vm.result)
 }
 
 output "ip" {
