@@ -1,0 +1,35 @@
+name: "Terraform Apply"
+
+on:
+  push:
+    branches: ["master"]
+
+permissions:
+  contents: read
+
+jobs:
+  terraform-apply:
+    name: "Apply"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: "Login via Azure CLI"
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.2
+      - name: "Terraform Init"
+        run: terraform init -input=false -backend-config=default.conf
+        working-directory: ./ci/app
+        env:
+          ARM_ACCESS_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+      - name: Terraform Apply
+        id: terraform-apply
+        run: terraform apply -auto-approve -input=false -var-file="default.tfvars"
+        working-directory: ./ci/app
+        env:
+          ARM_ACCESS_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
